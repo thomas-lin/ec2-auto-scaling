@@ -1,4 +1,5 @@
-let os = require("os-utils")
+let os = require("os");
+let os_utils = require("os-utils")
 let express = require('express');
 let spawn = require('child_process').spawn;
 let path = require("path");
@@ -28,11 +29,10 @@ app.use("/cpu-down" , function(req , res){
     child.kill('SIGINT');
 });
 app.use("/cpu-usage" , function(req , res){
-    os.cpuUsage(function(v){
-        res.send('CPU Usage (%): ' + Number(v*100).toFixed(2));
+    os_utils.cpuUsage(function(v){
+        res.send('CPU Usage (%): ' + Number(v*100).toFixed(2) + " ,on host:"+os.hostname());
     });
 });
-
 app.use(express.static(__dirname + '/app'));
 
 app.listen(port, function(error) {
