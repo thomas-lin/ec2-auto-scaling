@@ -1,0 +1,31 @@
+<html>
+    <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Auto Scaling Testing</h1>
+        <p><span id="cpu-usage"></span></p>
+        <p>Console:<span id="message"></span></p>
+        <button id="cpu-up">CPU Up</button>
+        <button id="cpu-down">CPU Down</button>
+        <script type="text/javascript">         
+            $("#cpu-up").click(function(){
+                $.get("./cpu-up",function(data){
+                    $("#message").html(data);
+                });
+            });
+
+            $("#cpu-down").click(function(){
+                $.get("./cpu-down",function(data){
+                    $("#message").html(data);
+                });
+            });
+
+            setInterval(function(){
+                $.get("./cpu-usage" , function(data){
+                    $("#cpu-usage").html(data);
+                });
+            },3000);
+        </script>
+    </body>
+</html>
